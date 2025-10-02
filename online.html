@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran Konseling Online</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <div class="logo">Ruang Putih</div>
+      <ul>
+        <li><a href="index.html">Home Page</a></li>
+        <li><a href="#">Consult</a></li>
+        <li><a href="#">Psychologist</a></li>
+        <li><a href="#">About Us</a></li>
+      </ul>
+      <div class="icon">👤</div>
+    </nav>
+  </header>
+
+  <!-- Container -->
+  <div class="container">
+    <div class="card">
+      <div class="header-card">
+        <h2 class="title">Pendaftaran Konseling Online</h2>
+        <p class="subtitle">Isi formulir berikut untuk mendaftar konseling</p>
+      </div>
+      
+      <form id="registrationForm">
+        <div class="form-group">
+          <label class="form-label">Pilih Jam</label>
+          <select class="form-select" id="timeSlot" required>
+            <option value="" selected disabled>Pilih jam konseling</option>
+            <option value="09.00-10.00">09.00 - 10.00</option>
+            <option value="12.00-13.00">12.00 - 13.00</option>
+            <option value="15.00-16.00">15.00 - 16.00</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Tentukan Tanggal</label>
+          <input type="date" class="date-input" id="appointmentDate" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Pilih Media Konseling</label>
+          <select class="form-select" id="media" required>
+            <option value="" selected disabled>Pilih media konseling</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="zoom">Zoom</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn">Daftar Sekarang</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Set minimum date to today
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    document.getElementById('appointmentDate').min = `${yyyy}-${mm}-${dd}`;
+
+    // Form submission
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const timeSlot = document.getElementById('timeSlot').value;
+      const date = document.getElementById('appointmentDate').value;
+      const media = document.getElementById('media').value;
+      
+      if (!timeSlot || !date || !media) {
+        alert('Harap isi semua field dengan benar');
+        return;
+      }
+      
+      const formattedDate = new Date(date).toLocaleDateString('id-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      
+      alert(`Pendaftaran berhasil!\n\nDetail Konseling:\nJam: ${timeSlot}\nTanggal: ${formattedDate}\nMedia: ${media === 'whatsapp' ? 'WhatsApp' : 'Zoom'}`);
+      
+      this.reset();
+    });
+  </script>
+</body>
+</html>
